@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) 2017-2018 Rafael da Silva Rocha.
+ * Copyright (c) 2018 Rafael da Silva Rocha.
  * Copyright (c) 2013 DeNA Co., Ltd.
  * Copyright (c) 2010, Linden Research, Inc
  *

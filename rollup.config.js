@@ -15,7 +15,7 @@ const externsFile = fs.readFileSync('./externs/ieee754-buffer.js', 'utf8');
 
 // Legal
 const license = '/*!\n'+
-' * Copyright (c) 2017-2018 Rafael da Silva Rocha.\n' +
+' * Copyright (c) 2018 Rafael da Silva Rocha.\n' +
 ' * Copyright (c) 2013 DeNA Co., Ltd.\n' +
 ' * Copyright (c) 2010, Linden Research, Inc\n' +
 ' *\n' +

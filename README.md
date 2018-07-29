@@ -1,5 +1,5 @@
 # ieee754-buffer
-Copyright (c) 2017-2018 Rafael da Silva Rocha.  
+Copyright (c) 2018 Rafael da Silva Rocha.  
 Copyright (c) 2013 DeNA Co., Ltd.  
 Copyright (c) 2010, Linden Research, Inc  
 https://github.com/rochars/ieee754-buffer
@@ -78,7 +78,7 @@ Or load it from [unpkg](https://unpkg.com/ieee754-buffer):
 ## API
 ```javascript
 /**
- * Pack a IEEE754 floating point number.
+ * Pack a IEEE 754 floating point number.
  * Derived from typedarray.js by Linden Research, MIT License.
  * @see https://bitbucket.org/lindenlab/llsd/raw/7d2646cd3f9b4c806e73aebc4b32bd81e4047fdc/js/typedarray.js
  * @param {!Uint8Array|!Array<number>} buffer The buffer.
@@ -91,12 +91,12 @@ Or load it from [unpkg](https://unpkg.com/ieee754-buffer):
 function pack(buffer, index, num, ebits, fbits) {}
 
 /**
- * Unpack a IEEE754 floating point number.
+ * Unpack a IEEE 754 floating point number.
  * Derived from IEEE754 by DeNA Co., Ltd., MIT License. 
  * Adapted to handle NaN. Should port the solution to the original repo.
  * @see https://github.com/kazuho/ieee754.js/blob/master/ieee754.js
- * @param {!Uint8Array|!Array<number>} buffer The byte buffer to unpack.
- * @param {number} index the start index to read.
+ * @param {!Uint8Array|!Array<number>} buffer The buffer.
+ * @param {number} index The index to read from the buffer.
  * @param {number} ebits The number of bits of the exponent.
  * @param {number} fbits The number of bits of the fraction.
  * @return {number} The floating point number.
@@ -117,8 +117,8 @@ https://google.github.io/styleguide/jsguide.html
 This project is bound by a code of conduct: The [Contributor Covenant, version 1.4](https://github.com/rochars/ieee754-buffer/blob/master/CODE_OF_CONDUCT.md), also available at https://www.contributor-covenant.org/version/1/4/code-of-conduct.html
 
 ## LICENSE
-Copyright (c) 2017-2018 Rafael da Silva Rocha.
-Copyright (c) 2013 DeNA Co., Ltd.
+Copyright (c) 2018 Rafael da Silva Rocha.  
+Copyright (c) 2013 DeNA Co., Ltd.  
 Copyright (c) 2010, Linden Research, Inc
 
 Permission is hereby granted, free of charge, to any person obtaining
