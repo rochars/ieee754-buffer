@@ -125,7 +125,7 @@ export function unpack(buffer, index, ebits, fbits) {
       return NaN;
     }
     return sign * Infinity;  
-  } else if (exponent == 0) {
+  } else if (exponent === 0) {
     exponent += 1;
     significand = parseInt(leftBits, 2);
   } else {
@@ -181,9 +181,11 @@ function packFloatBits_(buffer, index, ebits, fbits, sign, exp, fraction) {
 
 function roundToEven(n) {
   var w = Math.floor(n), f = n - w;
-  if (f < 0.5)
+  if (f < 0.5) {
     return w;
-  if (f > 0.5)
+  }
+  if (f > 0.5) {
     return w + 1;
+  }
   return w % 2 ? w + 1 : w;
 }
