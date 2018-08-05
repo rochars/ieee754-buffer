@@ -25,9 +25,9 @@ npm install ieee754-buffer
 ## Use
 
 ### Browser
-Use **ieee754-buffer.umd.js** in the */dist* folder of this package:
+Use **ieee754-buffer.umd.js**:
 ```html
-<script src="./dist/ieee754-buffer.umd.js"></script>
+<script src="ieee754-buffer.umd.js"></script>
 <script>
 	var buffer = [];
 	ieee754Buffer.pack(buffer, 0, 3.1415927410, 8, 23);
@@ -52,7 +52,7 @@ Cross-browser tests powered by
 <a href="https://www.browserstack.com"><img src="https://rochars.github.io/endianness/docs/Browserstack-logo@2x.png" width="150px"/></a>
 
 ### Node
-If you installed via [NPM](https://www.npmjs.com/) or [Yarn](https://yarnpkg.com), **import ieee754Buffer from ieee754-buffer**:
+**Import ieee754Buffer from ieee754-buffer**:
 ```javascript
 import * as ieee754Buffer from 'ieee754-buffer';
 let buffer = Uint8Array(4);
