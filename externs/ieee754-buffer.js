@@ -1,5 +1,5 @@
 /**
- * @fileoverview Externs for ieee754-buffer 0.0.1
+ * @fileoverview Externs for ieee754-buffer 0.0.2
  * @see https://github.com/rochars/ieee754-buffer
  * @externs
  */

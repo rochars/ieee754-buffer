@@ -48,18 +48,27 @@
     <section class="readme">
         <article><h1>ieee754-buffer</h1><p>Copyright (c) 2018 Rafael da Silva Rocha.<br>Copyright (c) 2013 DeNA Co., Ltd.<br>Copyright (c) 2010, Linden Research, Inc<br>https://github.com/rochars/ieee754-buffer</p>
 <p><a href="https://www.npmjs.com/package/ieee754-buffer"><img src="https://img.shields.io/npm/v/ieee754-buffer.svg?style=for-the-badge" alt="NPM version"></a> <a href="https://rochars.github.io/ieee754-buffer/docs/index.html"><img src="https://img.shields.io/badge/docs-online-blue.svg?style=for-the-badge" alt="Docs"></a> <a href="https://rochars.github.io/ieee754-buffer/test/dist/browser.html"><img src="https://img.shields.io/badge/tests-online-blue.svg?style=for-the-badge" alt="Tests"></a><br><a href="https://codecov.io/gh/rochars/ieee754-buffer"><img src="https://img.shields.io/codecov/c/github/rochars/ieee754-buffer.svg?style=flat-square" alt="Codecov"></a> <a href="https://travis-ci.org/rochars/ieee754-buffer"><img src="https://img.shields.io/travis/rochars/ieee754-buffer.svg?style=flat-square" alt="Unix Build"></a> <a href="https://ci.appveyor.com/project/rochars/ieee754-buffer"><img src="https://img.shields.io/appveyor/ci/rochars/ieee754-buffer.svg?style=flat-square&amp;logo=appveyor" alt="Windows Build"></a> <a href="https://scrutinizer-ci.com/g/rochars/ieee754-buffer/"><img src="https://img.shields.io/scrutinizer/g/rochars/ieee754-buffer.svg?style=flat-square&amp;logo=scrutinizer" alt="Scrutinizer"></a></p>
-<p><strong>ieee754-buffer</strong> is a ES6 module to encode and decode IEEE 754 floats without typed arrays.</p>
+<p><strong>ieee754-buffer</strong> is a ES module to encode and decode IEEE 754 floats without typed arrays.</p>
 <ul>
 <li><strong>MIT licensed</strong></li>
 <li><strong>Use it out of the box in the browser</strong></li>
 <li><strong>Use it out of the box in Node.js</strong></li>
-<li><strong>Can be used with arrays and typed arrays</strong></li>
-<li><strong>Compatible with IE8+</strong></li>
-<li><strong>Include TypeScript declaration file</strong></li>
+<li><strong>Use it out of the box with <a href="https://www.typescriptlang.org/">TypeScript</a></strong></li>
+<li><strong>UMD compatible with IE6+ and browsers that support ES3/ES5/ES6+</strong></li>
 <li><strong>Tested with 16-bit, 32-bit and 64-bit floats</strong></li>
 <li><strong>Tested against Python's struct module</strong></li>
 </ul>
-<h2>Install</h2><pre class="prettyprint source"><code>npm install ieee754-buffer</code></pre><h2>Use</h2><h3>Node</h3><p>If you installed via <a href="https://www.npmjs.com/">NPM</a> or <a href="https://yarnpkg.com">Yarn</a>, <strong>import ieee754Buffer from ieee754-buffer</strong>:</p>
+<h2>Install</h2><pre class="prettyprint source"><code>npm install ieee754-buffer</code></pre><h2>Use</h2><h3>Browser</h3><p>Use <strong>ieee754-buffer.umd.js</strong> in the <em>/dist</em> folder of this package:</p>
+<pre class="prettyprint source lang-html"><code>&lt;script src=&quot;./dist/ieee754-buffer.umd.js&quot;>&lt;/script>
+&lt;script>
+    var buffer = [];
+    ieee754Buffer.pack(buffer, 0, 3.1415927410, 8, 23);
+    console.log(buffer);
+&lt;/script></code></pre><p>Or load it from the <a href="https://cdn.jsdelivr.net/npm/ieee754-buffer">jsDelivr</a> CDN:</p>
+<pre class="prettyprint source lang-html"><code>&lt;script src=&quot;https://cdn.jsdelivr.net/npm/ieee754-buffer&quot;>&lt;/script></code></pre><p>Or load it from <a href="https://unpkg.com/ieee754-buffer">unpkg</a>:</p>
+<pre class="prettyprint source lang-html"><code>&lt;script src=&quot;https://unpkg.com/ieee754-buffer&quot;>&lt;/script></code></pre><h4>Browser compatibility</h4><p><strong>ieee754-buffer.umd.js</strong> is compatible with IE6+. Should work in all modern browsers that support ES3/ES5/ES6+.</p>
+<p>Cross-browser tests powered by<br><a href="https://www.browserstack.com"><img src="https://rochars.github.io/endianness/docs/Browserstack-logo@2x.png" width="150px"/></a></p>
+<h3>Node</h3><p>If you installed via <a href="https://www.npmjs.com/">NPM</a> or <a href="https://yarnpkg.com">Yarn</a>, <strong>import ieee754Buffer from ieee754-buffer</strong>:</p>
 <pre class="prettyprint source lang-javascript"><code>import * as ieee754Buffer from 'ieee754-buffer';
 let buffer = Uint8Array(4);
 ieee754Buffer.pack(buffer, 0, 3.1415927410, 8, 23);
@@ -68,15 +77,7 @@ console.log(buffer);</code></pre><p>Or <strong>import</strong> just what you nee
 let buffer = []; // Use arrays or typed arrays
 pack(buffer, 0, 3.1415927410, 8, 23)
 console.log(buffer);</code></pre><p>Or <strong>require</strong>:</p>
-<pre class="prettyprint source lang-javascript"><code>const ieee754Buffer = require('ieee754-buffer');</code></pre><h3>Browser</h3><p>Use <strong>ieee754-buffer.umd.js</strong> in the <em>/dist</em> folder of this package:</p>
-<pre class="prettyprint source lang-html"><code>&lt;script src=&quot;./dist/ieee754-buffer.umd.js&quot;>&lt;/script>
-&lt;script>
-    var buffer = [];
-    ieee754Buffer.pack(buffer, 0, 3.1415927410, 8, 23);
-    console.log(buffer);
-&lt;/script></code></pre><p>Or load it from the <a href="https://cdn.jsdelivr.net/npm/ieee754-buffer">jsDelivr</a> CDN:</p>
-<pre class="prettyprint source lang-html"><code>&lt;script src=&quot;https://cdn.jsdelivr.net/npm/ieee754-buffer&quot;>&lt;/script></code></pre><p>Or load it from <a href="https://unpkg.com/ieee754-buffer">unpkg</a>:</p>
-<pre class="prettyprint source lang-html"><code>&lt;script src=&quot;https://unpkg.com/ieee754-buffer&quot;>&lt;/script></code></pre><h2>About</h2><ul>
+<pre class="prettyprint source lang-javascript"><code>const ieee754Buffer = require('ieee754-buffer');</code></pre><h2>About</h2><ul>
 <li><strong>Overflows</strong> are rounded towards <strong>Infinity</strong> and <strong>-Infinity</strong>.</li>
 <li><strong>NaN</strong> is packed as quiet NaN. Both <strong>quiet NaN</strong> and <strong>signaling NaN</strong> can be unpacked.</li>
 <li>Support packing and unpacking <strong>zero</strong> and <strong>negative zero</strong>.</li>
@@ -241,7 +242,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p></article>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Jul 29 2018 12:36:22 GMT-0300 (Hora oficial do Brasil) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Aug 04 2018 21:36:40 GMT-0300 (Hora oficial do Brasil) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

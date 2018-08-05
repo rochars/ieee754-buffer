@@ -1,27 +1,202 @@
-/*!
- * Copyright (c) 2018 Rafael da Silva Rocha.
- * Copyright (c) 2013 DeNA Co., Ltd.
- * Copyright (c) 2010, Linden Research, Inc
- *
- * Permission is hereby granted, free of charge, to any person obtaining
- * a copy of this software and associated documentation files (the
- * "Software"), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish,
- * distribute, sublicense, and/or sell copies of the Software, and to
- * permit persons to whom the Software is furnished to do so, subject to
- * the following conditions:
- *
- * The above copyright notice and this permission notice shall be
- * included in all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
- * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
- * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
- * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-var m={pack:function(g,c,a,e,d){var b=(1<<e-1)-1;Math.abs(a)>Math.pow(2,b+1)-2*(e+d)&&(a=0>a?-Infinity:Infinity);var f=0>((a=+a)||1/a)?1:0>a?1:0;a=Math.abs(a);var k=Math.min(Math.floor(Math.log(a)/Math.LN2),1023),h=l(a/Math.pow(2,k)*Math.pow(2,d));a!==a?(h=Math.pow(2,d-1),k=(1<<e)-1):0!==a&&(a>=Math.pow(2,1-b)?(2<=h/Math.pow(2,d)&&(k+=1,h=1),k>b?(k=(1<<e)-1,h=0):(k+=b,h=l(h)-Math.pow(2,d))):(h=l(a/Math.pow(2,1-b-d)),k=0));b=k;a=[];a.push(f);for(f=e;0<f;--f)a[f]=b%2?1:0,b=Math.floor(b/2);f=a.length;
-for(b=d;0<b;--b)a[f+b]=h%2?1:0,h=Math.floor(h/2);f=a.join("");e=Math.floor((e+d+1)/8)+c-1;for(d=c;e>=c;)g[e]=parseInt(f.substring(0,8),2),f=f.substring(8),e--,d++;return d},unpack:function(g,c,a,e){var d=Math.ceil((a+e)/8);e=Math.pow(2,-(8*d-1-a));var b="";for(--d;0<=d;d--){var f=g[d+c].toString(2);b+="00000000".substring(f.length)+f}g="1"==b.charAt(0)?-1:1;b=b.substring(1);c=parseInt(b.substring(0,a),2);b=b.substring(a);if(c==(1<<a)-1)return 0!==parseInt(b,2)?NaN:Infinity*g;0===c?(c+=1,b=parseInt(b,
-2)):b=parseInt("1"+b,2);return g*b*e*Math.pow(2,c-((1<<a-1)-1))}},exports=m||{};Object.defineProperty(m,"__esModule",{value:!0});function l(g){var c=Math.floor(g);g-=c;return.5>g?c:.5<g?c+1:c%2?c+1:c};var ieee754Buffer=exports;typeof module!=='undefined'?module.exports=exports :typeof define==='function'&&define.amd?define(['exports'],exports) :typeof global!=='undefined'?global.ieee754Buffer=exports:null;
+;(function (global, factory) {typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :typeof define === 'function' && define.amd ? define(factory) :(global.ieee754Buffer = factory());}(this, (function () {
+var ieee754Buffer = (function (exports) {
+  /*
+   * Copyright (c) 2018 Rafael da Silva Rocha.
+   * Copyright (c) 2013 DeNA Co., Ltd.
+   * Copyright (c) 2010, Linden Research, Inc
+   *
+   * Permission is hereby granted, free of charge, to any person obtaining
+   * a copy of this software and associated documentation files (the
+   * "Software"), to deal in the Software without restriction, including
+   * without limitation the rights to use, copy, modify, merge, publish,
+   * distribute, sublicense, and/or sell copies of the Software, and to
+   * permit persons to whom the Software is furnished to do so, subject to
+   * the following conditions:
+   *
+   * The above copyright notice and this permission notice shall be
+   * included in all copies or substantial portions of the Software.
+   *
+   * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+   * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+   * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+   * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+   * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+   * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+   *
+   */
+
+  /**
+   * @fileoverview Functions to pack and unpack IEEE 754 floating point numbers.
+   * @see https://github.com/rochars/ieee754-buffer
+   */
+
+  /** @module ieee754Buffer */
+
+  /**
+   * Pack a IEEE 754 floating point number.
+   * Derived from typedarray.js by Linden Research, MIT License.
+   * @see https://bitbucket.org/lindenlab/llsd/raw/7d2646cd3f9b4c806e73aebc4b32bd81e4047fdc/js/typedarray.js
+   * @param {!Uint8Array|!Array<number>} buffer The buffer.
+   * @param {number} index The index to write on the buffer.
+   * @param {number} num The number.
+   * @param {number} ebits The number of bits of the exponent.
+   * @param {number} fbits The number of bits of the fraction.
+   * @return {number} The next index to write on the buffer.
+   */
+  function pack(buffer, index, num, ebits, fbits) {
+    /** @type {number} */
+    var bias = (1 << ebits - 1) - 1;
+    // Round overflows
+    if (Math.abs(num) > Math.pow(2, bias + 1) - (ebits + fbits) * 2) {
+      num = num < 0 ? -Infinity : Infinity;
+    }
+    /**
+     * sign, need this to handle negative zero
+     * @see http://cwestblog.com/2014/02/25/javascript-testing-for-negative-zero/
+     * @type {number}
+     */
+    var sign = ((num = +num) || 1 / num) < 0 ? 1 : num < 0 ? 1 : 0;
+    num = Math.abs(num);
+    /** @type {number} */
+    var exp = Math.min(Math.floor(Math.log(num) / Math.LN2), 1023);
+    /** @type {number} */
+    var fraction = roundToEven(num / Math.pow(2, exp) * Math.pow(2, fbits));
+    // NaN
+    if (num !== num) {
+      fraction = Math.pow(2, fbits - 1);
+      exp = (1 << ebits) - 1;
+      // Number
+    } else if (num !== 0) {
+      if (num >= Math.pow(2, 1 - bias)) {
+        if (fraction / Math.pow(2, fbits) >= 2) {
+          exp = exp + 1;
+          fraction = 1;
+        }
+        // Overflow
+        if (exp > bias) {
+          exp = (1 << ebits) - 1;
+          fraction = 0;
+        } else {
+          exp = exp + bias;
+          fraction = roundToEven(fraction) - Math.pow(2, fbits);
+        }
+      } else {
+        fraction = roundToEven(num / Math.pow(2, 1 - bias - fbits));
+        exp = 0;
+      }
+    }
+    return packFloatBits_(buffer, index, ebits, fbits, sign, exp, fraction);
+  }
+
+  /**
+   * Unpack a IEEE 754 floating point number.
+   * Derived from IEEE754 by DeNA Co., Ltd., MIT License. 
+   * Adapted to handle NaN. Should port the solution to the original repo.
+   * @see https://github.com/kazuho/ieee754.js/blob/master/ieee754.js
+   * @param {!Uint8Array|!Array<number>} buffer The buffer.
+   * @param {number} index The index to read from the buffer.
+   * @param {number} ebits The number of bits of the exponent.
+   * @param {number} fbits The number of bits of the fraction.
+   * @return {number} The floating point number.
+   */
+  function unpack(buffer, index, ebits, fbits) {
+    var exponentBias = (1 << ebits - 1) - 1;
+    var numBytes = Math.ceil((ebits + fbits) / 8);
+    /** @type {number} */
+    var eMax = (1 << ebits) - 1;
+    /** @type {number} */
+    var bias = Math.pow(2, -(8 * numBytes - 1 - ebits));
+    /** @type {number} */
+    var significand = void 0;
+    /** @type {string} */
+    var leftBits = "";
+    for (var i = numBytes - 1; i >= 0; i--) {
+      /** @type {string} */
+      var t = buffer[i + index].toString(2);
+      leftBits += "00000000".substring(t.length) + t;
+    }
+    /** @type {number} */
+    var sign = leftBits.charAt(0) == "1" ? -1 : 1;
+    leftBits = leftBits.substring(1);
+    /** @type {number} */
+    var exponent = parseInt(leftBits.substring(0, ebits), 2);
+    leftBits = leftBits.substring(ebits);
+    if (exponent == eMax) {
+      if (parseInt(leftBits, 2) !== 0) {
+        return NaN;
+      }
+      return sign * Infinity;
+    } else if (exponent === 0) {
+      exponent += 1;
+      significand = parseInt(leftBits, 2);
+    } else {
+      significand = parseInt("1" + leftBits, 2);
+    }
+    return sign * significand * bias * Math.pow(2, exponent - exponentBias);
+  }
+
+  /**
+   * Pack a IEEE754 from its sign, exponent and fraction bits
+   * and place it in a byte buffer.
+   * @param {!Uint8Array|!Array<number>} buffer The byte buffer to write to.
+   * @param {number} index The buffer index to write.
+   * @param {number} ebits The number of bits of the exponent.
+   * @param {number} fbits The number of bits of the fraction.
+   * @param {number} sign The sign.
+   * @param {number} exp the exponent.
+   * @param {number} fraction The fraction.
+   * @return {number}
+   * @private
+   */
+  function packFloatBits_(buffer, index, ebits, fbits, sign, exp, fraction) {
+    /** @type {!Array<number>} */
+    var bits = [];
+    // the sign
+    bits.push(sign);
+    // the exponent
+    for (var i = ebits; i > 0; i -= 1) {
+      bits[i] = exp % 2 ? 1 : 0;
+      exp = Math.floor(exp / 2);
+    }
+    // the fraction
+    var len = bits.length;
+    for (var _i = fbits; _i > 0; _i -= 1) {
+      bits[len + _i] = fraction % 2 ? 1 : 0;
+      fraction = Math.floor(fraction / 2);
+    }
+    // pack as bytes
+    /** @type {string} */
+    var str = bits.join('');
+    /** @type {number} */
+    var numBytes = Math.floor((ebits + fbits + 1) / 8) + index - 1;
+    /** @type {number} */
+    var k = index;
+    while (numBytes >= index) {
+      buffer[numBytes] = parseInt(str.substring(0, 8), 2);
+      str = str.substring(8);
+      numBytes--;
+      k++;
+    }
+    return k;
+  }
+
+  function roundToEven(n) {
+    var w = Math.floor(n),
+        f = n - w;
+    if (f < 0.5) {
+      return w;
+    }
+    if (f > 0.5) {
+      return w + 1;
+    }
+    return w % 2 ? w + 1 : w;
+  }
+
+  exports.pack = pack;
+  exports.unpack = unpack;
+
+  return exports;
+
+}({}));
+ return ieee754Buffer;})));

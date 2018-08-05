@@ -4,19 +4,19 @@
  *
  */
 
-let utf8Buffer;
+let ieee754Buffer;
 
 // UMD bundle
 if (process.argv[3] == '--umd') {
 	console.log('umd tests');
-	utf8Buffer = require('../ieee754-buffer.umd.js');
+	ieee754Buffer = require('../ieee754-buffer.umd.js');
 
 // Source
 } else {
 	require = require("esm")(module);
 	global.module = module;
 	console.log('Source tests');
-	utf8Buffer = require('../ieee754-buffer.js');
+	ieee754Buffer = require('../ieee754-buffer.js');
 }
 
-module.exports = utf8Buffer;
+module.exports = ieee754Buffer;

@@ -7,8 +7,8 @@
  * @see https://github.com/rochars/ieee754-buffer
  * @see https://en.wikipedia.org/wiki/Double-precision_floating-point_format
  */
-
-var ieee = require('../../test/loader.js');
+if (typeof window !=== 'undefined') {
+var ieee = ieee754Buffer;
 var assert = assert || require('assert');
 
 describe('Binary64 numbers', function() {     
@@ -178,3 +178,4 @@ describe('Binary64 numbers', function() {
             [0,0,0,0,0,0,0,64]);
     });
 });
+}

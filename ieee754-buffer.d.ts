@@ -1,4 +1,4 @@
-// Type definitions for ieee754-buffer 0.0.1
+// Type definitions for ieee754-buffer 0.0.2
 // Project: https://github.com/rochars/ieee754-buffer
 // Definitions by: Rafael da Silva Rocha <https://github.com/rochars>
 // Definitions: https://github.com/rochars/ieee754-buffer

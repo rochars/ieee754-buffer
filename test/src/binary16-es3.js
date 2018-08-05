@@ -7,8 +7,8 @@
  * @see https://github.com/rochars/ieee754-buffer
  * @see https://en.wikipedia.org/wiki/Half-precision_floating-point_format
  */
-
-var ieee = require('../../test/loader.js');
+if (typeof window !== 'undefined') { //IE6
+var ieee = ieee754Buffer;
 var assert = assert || require('assert');
 
 describe('Binary16 numbers', function() {     
@@ -185,3 +185,4 @@ describe('Binary16 numbers', function() {
             [0x01,0x68]);
     });
 });
+}
