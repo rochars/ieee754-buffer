@@ -29,7 +29,7 @@ describe('Binary16 numbers', function() {
     });
     it('pack -0', function() {
         var buffer = [];
-        ieee.pack(buffer, 0, -0);
+        ieee.pack(buffer, -0, 0);
         assert.deepEqual(
         	buffer, 
             [0,128]);
@@ -42,7 +42,7 @@ describe('Binary16 numbers', function() {
 
     it('pack 1e-25', function() {
         var buffer = [];
-        ieee.pack(buffer, 0, 1e-25);
+        ieee.pack(buffer, 1e-25, 0);
         assert.deepEqual(
             buffer, 
             [0,0]);
@@ -56,7 +56,7 @@ describe('Binary16 numbers', function() {
     // NaN
     it('pack NaN', function() {
         var buffer = [];
-        ieee.pack(buffer, 0, NaN);
+        ieee.pack(buffer, NaN, 0);
         assert.deepEqual(
             buffer, 
             [0, 126]); // Python struct.pack('e', math.nan)
@@ -68,7 +68,7 @@ describe('Binary16 numbers', function() {
     // Infinity
     it('pack Infinity', function() {
         var buffer = [];
-        ieee.pack(buffer, 0, Infinity);
+        ieee.pack(buffer, Infinity, 0);
         assert.deepEqual(
         	buffer, 
             [0, 124]); // Python struct.pack('e', math.inf)
@@ -80,7 +80,7 @@ describe('Binary16 numbers', function() {
     });
     it('pack -Infinity', function() {
         var buffer = [];
-        ieee.pack(buffer, 0, -Infinity);
+        ieee.pack(buffer, -Infinity, 0);
         assert.deepEqual(
         	buffer, 
             [0x00, 0xfc]); // Python struct.pack('e', -math.inf)
@@ -93,14 +93,14 @@ describe('Binary16 numbers', function() {
     // round to Infinity
     it('round 65520 to Infinity when packing', function() {
         var buffer = [];
-        ieee.pack(buffer, 0, 65520);
+        ieee.pack(buffer, 65520, 0);
         assert.deepEqual(
             buffer, 
             [0, 124]);
     });
     it('round 65520+ to Infinity when packing', function() {
         var buffer = [];
-        ieee.pack(buffer, 0, 65521);
+        ieee.pack(buffer, 65521, 0);
         assert.deepEqual(
             buffer, 
             [0, 124]);
@@ -109,7 +109,7 @@ describe('Binary16 numbers', function() {
     // Pi
     it('pack pi as 3.14159', function() {
         var buffer = [];
-        ieee.pack(buffer, 0, 3.14159);
+        ieee.pack(buffer, 3.14159, 0);
         assert.deepEqual(buffer, 
             [0x48,0x42]); // Python struct.pack('e', 3.14159)
     });
@@ -124,7 +124,7 @@ describe('Binary16 numbers', function() {
     // Test 1, MIN, MAX
     it('pack 1', function() {
         var buffer = [];
-        ieee.pack(buffer, 0, 1);
+        ieee.pack(buffer, 1, 0);
         assert.deepEqual(
         	buffer, 
             [0x00,0x3c]);
@@ -136,7 +136,7 @@ describe('Binary16 numbers', function() {
     });
     it('pack -2048 (min exact)', function() {
         var buffer = [];
-        ieee.pack(buffer, 0, -2048);
+        ieee.pack(buffer, -2048, 0);
         assert.deepEqual(
         	buffer, 
             [0x00,0xe8]);
@@ -148,7 +148,7 @@ describe('Binary16 numbers', function() {
     });
     it('pack 2048 (max exact)', function() {
         var buffer = [];
-        ieee.pack(buffer, 0, 2048);
+        ieee.pack(buffer, 2048, 0);
         assert.deepEqual(
         	buffer, 
             [0x00,0x68]);
@@ -162,14 +162,14 @@ describe('Binary16 numbers', function() {
     // Rounding
     it('pack 2049 like it pack 2048', function() {
         var buffer = [];
-        ieee.pack(buffer, 0, 2049);
+        ieee.pack(buffer, 2049, 0);
         assert.deepEqual(
             buffer, 
             [0x00,0x68]);
     });
     it('pack 2050', function() {
         var buffer = [];
-        ieee.pack(buffer, 0, 2050);
+        ieee.pack(buffer, 2050, 0);
         assert.deepEqual(
             buffer, 
             [0x01,0x68]);
@@ -181,7 +181,7 @@ describe('Binary16 numbers', function() {
     });
     it('pack 2051 like it pack 2050', function() {
         var buffer = [];
-        ieee.pack(buffer, 0, 2051);
+        ieee.pack(buffer, 2051, 0);
         assert.deepEqual(
             buffer, 
             [0x01,0x68]);

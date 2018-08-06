@@ -89,8 +89,8 @@ export class IEEE754Buffer {
   /**
    * Pack a IEEE 754 floating point number.
    * @param {!Uint8Array|!Array<number>} buffer The buffer.
-   * @param {number} index The index to write on the buffer.
    * @param {number} num The number.
+   * @param {number} index The index to write on the buffer.
    * @return {number} The next index to write on the buffer.
    */
   pack(buffer, index, num) {}

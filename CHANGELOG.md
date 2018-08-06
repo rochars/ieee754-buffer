@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 0.2.0 (2018-08-04)
+- API change: IEEE754Buffer.pack(buffer, num, index) instead of IEEE754Buffer.pack(buffer, index, num)
+
 ## 0.1.0 (2018-08-04)
 - API change: IEEE754Buffer as a class
 

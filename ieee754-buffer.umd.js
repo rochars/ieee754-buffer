@@ -87,15 +87,15 @@ var IEEE754Buffer = (function (exports) {
     /**
      * Pack a IEEE 754 floating point number.
      * @param {!Uint8Array|!Array<number>} buffer The buffer.
-     * @param {number} index The index to write on the buffer.
      * @param {number} num The number.
+     * @param {number} index The index to write on the buffer.
      * @return {number} The next index to write on the buffer.
      */
 
 
     createClass(IEEE754Buffer, [{
       key: "pack",
-      value: function pack(buffer, index, num) {
+      value: function pack(buffer, num, index) {
         // Round overflows
         if (Math.abs(num) > this.biasP2 - this.ebitsFbits * 2) {
           num = num < 0 ? -Infinity : Infinity;

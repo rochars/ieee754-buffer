@@ -1,8 +1,11 @@
 define(function (require) {
-    var ieee754Buffer = require('../../../../ieee754-buffer.umd.js');
+    var IEEE754Buffer = require('../../../../ieee754-buffer.umd.js').IEEE754Buffer;
     var buffer = [];
+
+    var ieee754Buffer = new IEEE754Buffer(8, 23);
+
     // pack a value
-    ieee754Buffer.pack(buffer, 0, 3.1415927410, 8, 23)
+    ieee754Buffer.pack(buffer, 3.1415927410, 0)
     if (buffer[0] !== 0xdb ||
     	buffer[1] !== 0x0F ||
     	buffer[2] !== 0x49 ||
@@ -10,7 +13,7 @@ define(function (require) {
     	throw new Error('AMD module error on pack binary32');
     }
     // unpack a value
-    if (ieee754Buffer.unpack(buffer, 0, 8, 23).toFixed(10) !== '3.1415927410') {
+    if (ieee754Buffer.unpack(buffer, 0).toFixed(10) !== '3.1415927410') {
     	throw new Error('AMD module error on unpack binary32');
     }
     console.log(buffer);
