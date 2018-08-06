@@ -1,6 +1,6 @@
 {
   "name": "ieee754-buffer",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A class to encode and decode IEEE 754 floating point numbers.",
   "homepage": "https://github.com/rochars/ieee754-buffer",
   "author": "Rafael da Silva Rocha <rocha.rafaelsilva@gmail.com>",
