@@ -12,7 +12,7 @@ var assert = assert || require('assert');
 
 describe('Binary64 numbers', function() {
 
-    let ieee = new IEEE754Buffer.IEEE754Buffer(11, 52);
+    var ieee = new IEEE754Buffer.IEEE754Buffer(11, 52);
     
     // Zeros
     it('pack 0', function() {
