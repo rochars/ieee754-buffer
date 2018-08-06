@@ -186,8 +186,6 @@ var IEEE754Buffer = (function (exports) {
        * and place it in a byte buffer.
        * @param {!Uint8Array|!Array<number>} buffer The byte buffer to write to.
        * @param {number} index The buffer index to write.
-       * @param {number} ebits The number of bits of the exponent.
-       * @param {number} fbits The number of bits of the fraction.
        * @param {number} sign The sign.
        * @param {number} exp the exponent.
        * @param {number} fraction The fraction.
