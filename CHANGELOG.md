@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 0.2.1 (2018-08-06)
+- Fix docstring in packFloatBits_()
+
 ## 0.2.0 (2018-08-06)
 - API change: IEEE754Buffer.pack(buffer, num, index) instead of IEEE754Buffer.pack(buffer, index, num)
 
