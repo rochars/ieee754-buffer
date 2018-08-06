@@ -7,10 +7,12 @@
  * @see https://github.com/rochars/ieee754-buffer
  */
 
-import * as ieee754Buffer from '../../../ieee754-buffer.js'
+import {IEEE754Buffer} from '../../../ieee754-buffer.js'
+
+let packer = new IEEE754Buffer(8, 23)
 
 let buffer = [];
-ieee754Buffer.pack(buffer, 0, 3.1415927410, 8, 23);
+packer.pack(buffer, 0, 3.1415927410);
 console.log(buffer);
 
-console.log(ieee754Buffer.unpack(buffer, 0, 8, 23));
+console.log(packer.unpack(buffer, 0));

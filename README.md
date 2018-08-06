@@ -29,8 +29,9 @@ Use **ieee754-buffer.umd.js**:
 ```html
 <script src="ieee754-buffer.umd.js"></script>
 <script>
+	let packer = new IEEE754Buffer.IEEE754Buffer(8, 23);
 	var buffer = [];
-	ieee754Buffer.pack(buffer, 0, 3.1415927410, 8, 23);
+	packer.pack(buffer, 0, 3.1415927410, 8, 23);
 	console.log(buffer);
 </script>
 ```
@@ -52,25 +53,18 @@ Cross-browser tests powered by
 <a href="https://www.browserstack.com"><img src="https://rochars.github.io/endianness/docs/Browserstack-logo@2x.png" width="150px"/></a>
 
 ### Node
-**Import ieee754Buffer from ieee754-buffer**:
+**Import IEEE754Buffer from ieee754-buffer**:
 ```javascript
-import * as ieee754Buffer from 'ieee754-buffer';
+import {IEEE754Buffer} from 'ieee754-buffer';
+let packer = new IEEE754Buffer(8, 23);
 let buffer = Uint8Array(4);
-ieee754Buffer.pack(buffer, 0, 3.1415927410, 8, 23);
-console.log(buffer);
-```
-
-Or **import** just what you need:
-```javascript
-import {pack, unpack} from 'ieee754-buffer';
-let buffer = []; // Use arrays or typed arrays
-pack(buffer, 0, 3.1415927410, 8, 23)
+packer.pack(buffer, 0, 3.1415927410, 8, 23);
 console.log(buffer);
 ```
 
 Or **require**:
 ```javascript
-const ieee754Buffer = require('ieee754-buffer');
+const IEEE754Buffer = require('ieee754-buffer').IEEE754Buffer;
 ```
 
 ## About
@@ -82,31 +76,35 @@ const ieee754Buffer = require('ieee754-buffer');
 
 ## API
 ```javascript
-/**
- * Pack a IEEE 754 floating point number.
- * Derived from typedarray.js by Linden Research, MIT License.
- * @see https://bitbucket.org/lindenlab/llsd/raw/7d2646cd3f9b4c806e73aebc4b32bd81e4047fdc/js/typedarray.js
- * @param {!Uint8Array|!Array<number>} buffer The buffer.
- * @param {number} index The index to write on the buffer.
- * @param {number} num The number.
- * @param {number} ebits The number of bits of the exponent.
- * @param {number} fbits The number of bits of the fraction.
- * @return {number} The next index to write on the buffer.
- */
-function pack(buffer, index, num, ebits, fbits) {}
 
-/**
- * Unpack a IEEE 754 floating point number.
- * Derived from IEEE754 by DeNA Co., Ltd., MIT License. 
- * Adapted to handle NaN. Should port the solution to the original repo.
- * @see https://github.com/kazuho/ieee754.js/blob/master/ieee754.js
- * @param {!Uint8Array|!Array<number>} buffer The buffer.
- * @param {number} index The index to read from the buffer.
- * @param {number} ebits The number of bits of the exponent.
- * @param {number} fbits The number of bits of the fraction.
- * @return {number} The floating point number.
- */
-function unpack(buffer, index, ebits, fbits) {}
+export class IEEE754Buffer {
+
+  /**
+   * Pack a IEEE 754 floating point number.
+   * @param {number} ebits The exponent bits.
+   * @param {number} fbits The fraction bits.
+   */
+  constructor(ebits, fbits) {}
+
+  /**
+   * Pack a IEEE 754 floating point number.
+   * @param {!Uint8Array|!Array<number>} buffer The buffer.
+   * @param {number} index The index to write on the buffer.
+   * @param {number} num The number.
+   * @return {number} The next index to write on the buffer.
+   */
+  pack(buffer, index, num) {}
+
+  /**
+   * Unpack a IEEE 754 floating point number.
+   * Derived from IEEE754 by DeNA Co., Ltd., MIT License. 
+   * Adapted to handle NaN. Should port the solution to the original repo.
+   * @param {!Uint8Array|!Array<number>} buffer The buffer.
+   * @param {number} index The index to read from the buffer.
+   * @return {number} The floating point number.
+   */
+  unpack(buffer, index) {}
+}
 ```
 
 ## Contributing

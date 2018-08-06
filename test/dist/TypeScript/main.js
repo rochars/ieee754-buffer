@@ -7,8 +7,9 @@ exports.__esModule = true;
  * @fileoverview TypeScript declaration tests.
  * @see https://github.com/rochars/ieee754-buffer
  */
-var ieee754Buffer = require("../../../ieee754-buffer.js");
+var ieee754_buffer_js_1 = require("../../../ieee754-buffer.js");
+var packer = new ieee754_buffer_js_1.IEEE754Buffer(8, 23);
 var buffer = [];
-ieee754Buffer.pack(buffer, 0, 3.1415927410, 8, 23);
+packer.pack(buffer, 0, 3.1415927410);
 console.log(buffer);
-console.log(ieee754Buffer.unpack(buffer, 0, 8, 23));
+console.log(packer.unpack(buffer, 0));

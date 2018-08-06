@@ -13,9 +13,9 @@ import fs from 'fs';
 const head = ";(function (global, factory) {" +
   "typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :" +
   "typeof define === 'function' && define.amd ? define(factory) :" +
-  "(global.ieee754Buffer = factory());" +
+  "(global.IEEE754Buffer = factory());" +
 "}(this, (function () {";
-const foot = " return ieee754Buffer;})));"
+const foot = "return IEEE754Buffer;})));"
 
 export default [
   {
@@ -23,7 +23,7 @@ export default [
     output: [
       {
         file: 'ieee754-buffer.umd.js',
-        name: 'ieee754Buffer',
+        name: 'IEEE754Buffer',
         format: 'iife',
         strict: false,
         banner: head,

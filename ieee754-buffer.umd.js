@@ -1,5 +1,29 @@
-;(function (global, factory) {typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :typeof define === 'function' && define.amd ? define(factory) :(global.ieee754Buffer = factory());}(this, (function () {
-var ieee754Buffer = (function (exports) {
+;(function (global, factory) {typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :typeof define === 'function' && define.amd ? define(factory) :(global.IEEE754Buffer = factory());}(this, (function () {
+var IEEE754Buffer = (function (exports) {
+  var classCallCheck = function (instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  };
+
+  var createClass = function () {
+    function defineProperties(target, props) {
+      for (var i = 0; i < props.length; i++) {
+        var descriptor = props[i];
+        descriptor.enumerable = descriptor.enumerable || false;
+        descriptor.configurable = true;
+        if ("value" in descriptor) descriptor.writable = true;
+        Object.defineProperty(target, descriptor.key, descriptor);
+      }
+    }
+
+    return function (Constructor, protoProps, staticProps) {
+      if (protoProps) defineProperties(Constructor.prototype, protoProps);
+      if (staticProps) defineProperties(Constructor, staticProps);
+      return Constructor;
+    };
+  }();
+
   /*
    * Copyright (c) 2018 Rafael da Silva Rocha.
    * Copyright (c) 2013 DeNA Co., Ltd.
@@ -29,174 +53,195 @@ var ieee754Buffer = (function (exports) {
   /**
    * @fileoverview Functions to pack and unpack IEEE 754 floating point numbers.
    * @see https://github.com/rochars/ieee754-buffer
-   */
-
-  /** @module ieee754Buffer */
-
-  /**
-   * Pack a IEEE 754 floating point number.
-   * Derived from typedarray.js by Linden Research, MIT License.
    * @see https://bitbucket.org/lindenlab/llsd/raw/7d2646cd3f9b4c806e73aebc4b32bd81e4047fdc/js/typedarray.js
-   * @param {!Uint8Array|!Array<number>} buffer The buffer.
-   * @param {number} index The index to write on the buffer.
-   * @param {number} num The number.
-   * @param {number} ebits The number of bits of the exponent.
-   * @param {number} fbits The number of bits of the fraction.
-   * @return {number} The next index to write on the buffer.
-   */
-  function pack(buffer, index, num, ebits, fbits) {
-    /** @type {number} */
-    var bias = (1 << ebits - 1) - 1;
-    // Round overflows
-    if (Math.abs(num) > Math.pow(2, bias + 1) - (ebits + fbits) * 2) {
-      num = num < 0 ? -Infinity : Infinity;
-    }
-    /**
-     * sign, need this to handle negative zero
-     * @see http://cwestblog.com/2014/02/25/javascript-testing-for-negative-zero/
-     * @type {number}
-     */
-    var sign = ((num = +num) || 1 / num) < 0 ? 1 : num < 0 ? 1 : 0;
-    num = Math.abs(num);
-    /** @type {number} */
-    var exp = Math.min(Math.floor(Math.log(num) / Math.LN2), 1023);
-    /** @type {number} */
-    var fraction = roundToEven(num / Math.pow(2, exp) * Math.pow(2, fbits));
-    // NaN
-    if (num !== num) {
-      fraction = Math.pow(2, fbits - 1);
-      exp = (1 << ebits) - 1;
-      // Number
-    } else if (num !== 0) {
-      if (num >= Math.pow(2, 1 - bias)) {
-        if (fraction / Math.pow(2, fbits) >= 2) {
-          exp = exp + 1;
-          fraction = 1;
-        }
-        // Overflow
-        if (exp > bias) {
-          exp = (1 << ebits) - 1;
-          fraction = 0;
-        } else {
-          exp = exp + bias;
-          fraction = roundToEven(fraction) - Math.pow(2, fbits);
-        }
-      } else {
-        fraction = roundToEven(num / Math.pow(2, 1 - bias - fbits));
-        exp = 0;
-      }
-    }
-    return packFloatBits_(buffer, index, ebits, fbits, sign, exp, fraction);
-  }
-
-  /**
-   * Unpack a IEEE 754 floating point number.
-   * Derived from IEEE754 by DeNA Co., Ltd., MIT License. 
-   * Adapted to handle NaN. Should port the solution to the original repo.
    * @see https://github.com/kazuho/ieee754.js/blob/master/ieee754.js
-   * @param {!Uint8Array|!Array<number>} buffer The buffer.
-   * @param {number} index The index to read from the buffer.
-   * @param {number} ebits The number of bits of the exponent.
-   * @param {number} fbits The number of bits of the fraction.
-   * @return {number} The floating point number.
    */
-  function unpack(buffer, index, ebits, fbits) {
-    var exponentBias = (1 << ebits - 1) - 1;
-    var numBytes = Math.ceil((ebits + fbits) / 8);
-    /** @type {number} */
-    var eMax = (1 << ebits) - 1;
-    /** @type {number} */
-    var bias = Math.pow(2, -(8 * numBytes - 1 - ebits));
-    /** @type {number} */
-    var significand = void 0;
-    /** @type {string} */
-    var leftBits = "";
-    for (var i = numBytes - 1; i >= 0; i--) {
-      /** @type {string} */
-      var t = buffer[i + index].toString(2);
-      leftBits += "00000000".substring(t.length) + t;
+
+  /** @module IEEE754Buffer */
+
+  var IEEE754Buffer = function () {
+
+    /**
+     * Pack a IEEE 754 floating point number.
+     * @param {number} ebits The exponent bits.
+     * @param {number} fbits The fraction bits.
+     */
+    function IEEE754Buffer(ebits, fbits) {
+      classCallCheck(this, IEEE754Buffer);
+
+      this.ebits = ebits;
+      this.fbits = fbits;
+      this.bias = (1 << ebits - 1) - 1;
+      this.numBytes = Math.ceil((ebits + fbits) / 8);
+      this.biasP2 = Math.pow(2, this.bias + 1);
+      this.ebitsFbits = ebits + fbits;
+      this.fbias = Math.pow(2, -(8 * this.numBytes - 1 - ebits));
     }
-    /** @type {number} */
-    var sign = leftBits.charAt(0) == "1" ? -1 : 1;
-    leftBits = leftBits.substring(1);
-    /** @type {number} */
-    var exponent = parseInt(leftBits.substring(0, ebits), 2);
-    leftBits = leftBits.substring(ebits);
-    if (exponent == eMax) {
-      if (parseInt(leftBits, 2) !== 0) {
-        return NaN;
+
+    /**
+     * Pack a IEEE 754 floating point number.
+     * @param {!Uint8Array|!Array<number>} buffer The buffer.
+     * @param {number} index The index to write on the buffer.
+     * @param {number} num The number.
+     * @return {number} The next index to write on the buffer.
+     */
+
+
+    createClass(IEEE754Buffer, [{
+      key: "pack",
+      value: function pack(buffer, index, num) {
+        // Round overflows
+        if (Math.abs(num) > this.biasP2 - this.ebitsFbits * 2) {
+          num = num < 0 ? -Infinity : Infinity;
+        }
+        /**
+         * sign, need this to handle negative zero
+         * @see http://cwestblog.com/2014/02/25/javascript-testing-for-negative-zero/
+         * @type {number}
+         */
+        var sign = ((num = +num) || 1 / num) < 0 ? 1 : num < 0 ? 1 : 0;
+        num = Math.abs(num);
+        /** @type {number} */
+        var exp = Math.min(Math.floor(Math.log(num) / Math.LN2), 1023);
+        /** @type {number} */
+        var fraction = this.roundToEven(num / Math.pow(2, exp) * Math.pow(2, this.fbits));
+        // NaN
+        if (num !== num) {
+          fraction = Math.pow(2, this.fbits - 1);
+          exp = (1 << this.ebits) - 1;
+          // Number
+        } else if (num !== 0) {
+          if (num >= Math.pow(2, 1 - this.bias)) {
+            if (fraction / Math.pow(2, this.fbits) >= 2) {
+              exp = exp + 1;
+              fraction = 1;
+            }
+            // Overflow
+            if (exp > this.bias) {
+              exp = (1 << this.ebits) - 1;
+              fraction = 0;
+            } else {
+              exp = exp + this.bias;
+              fraction = this.roundToEven(fraction) - Math.pow(2, this.fbits);
+            }
+          } else {
+            fraction = this.roundToEven(num / Math.pow(2, 1 - this.bias - this.fbits));
+            exp = 0;
+          }
+        }
+        return this.packFloatBits_(buffer, index, sign, exp, fraction);
       }
-      return sign * Infinity;
-    } else if (exponent === 0) {
-      exponent += 1;
-      significand = parseInt(leftBits, 2);
-    } else {
-      significand = parseInt("1" + leftBits, 2);
-    }
-    return sign * significand * bias * Math.pow(2, exponent - exponentBias);
-  }
 
-  /**
-   * Pack a IEEE754 from its sign, exponent and fraction bits
-   * and place it in a byte buffer.
-   * @param {!Uint8Array|!Array<number>} buffer The byte buffer to write to.
-   * @param {number} index The buffer index to write.
-   * @param {number} ebits The number of bits of the exponent.
-   * @param {number} fbits The number of bits of the fraction.
-   * @param {number} sign The sign.
-   * @param {number} exp the exponent.
-   * @param {number} fraction The fraction.
-   * @return {number}
-   * @private
-   */
-  function packFloatBits_(buffer, index, ebits, fbits, sign, exp, fraction) {
-    /** @type {!Array<number>} */
-    var bits = [];
-    // the sign
-    bits.push(sign);
-    // the exponent
-    for (var i = ebits; i > 0; i -= 1) {
-      bits[i] = exp % 2 ? 1 : 0;
-      exp = Math.floor(exp / 2);
-    }
-    // the fraction
-    var len = bits.length;
-    for (var _i = fbits; _i > 0; _i -= 1) {
-      bits[len + _i] = fraction % 2 ? 1 : 0;
-      fraction = Math.floor(fraction / 2);
-    }
-    // pack as bytes
-    /** @type {string} */
-    var str = bits.join('');
-    /** @type {number} */
-    var numBytes = Math.floor((ebits + fbits + 1) / 8) + index - 1;
-    /** @type {number} */
-    var k = index;
-    while (numBytes >= index) {
-      buffer[numBytes] = parseInt(str.substring(0, 8), 2);
-      str = str.substring(8);
-      numBytes--;
-      k++;
-    }
-    return k;
-  }
+      /**
+       * Unpack a IEEE 754 floating point number.
+       * Derived from IEEE754 by DeNA Co., Ltd., MIT License. 
+       * Adapted to handle NaN. Should port the solution to the original repo.
+       * @param {!Uint8Array|!Array<number>} buffer The buffer.
+       * @param {number} index The index to read from the buffer.
+       * @return {number} The floating point number.
+       */
 
-  function roundToEven(n) {
-    var w = Math.floor(n),
-        f = n - w;
-    if (f < 0.5) {
-      return w;
-    }
-    if (f > 0.5) {
-      return w + 1;
-    }
-    return w % 2 ? w + 1 : w;
-  }
+    }, {
+      key: "unpack",
+      value: function unpack(buffer, index) {
+        /** @type {number} */
+        var eMax = (1 << this.ebits) - 1;
+        /** @type {number} */
+        var significand = void 0;
+        /** @type {string} */
+        var leftBits = "";
+        for (var i = this.numBytes - 1; i >= 0; i--) {
+          /** @type {string} */
+          var t = buffer[i + index].toString(2);
+          leftBits += "00000000".substring(t.length) + t;
+        }
+        /** @type {number} */
+        var sign = leftBits.charAt(0) == "1" ? -1 : 1;
+        leftBits = leftBits.substring(1);
+        /** @type {number} */
+        var exponent = parseInt(leftBits.substring(0, this.ebits), 2);
+        leftBits = leftBits.substring(this.ebits);
+        if (exponent == eMax) {
+          if (parseInt(leftBits, 2) !== 0) {
+            return NaN;
+          }
+          return sign * Infinity;
+        } else if (exponent === 0) {
+          exponent += 1;
+          significand = parseInt(leftBits, 2);
+        } else {
+          significand = parseInt("1" + leftBits, 2);
+        }
+        return sign * significand * this.fbias * Math.pow(2, exponent - this.bias);
+      }
 
-  exports.pack = pack;
-  exports.unpack = unpack;
+      /**
+       * Pack a IEEE754 from its sign, exponent and fraction bits
+       * and place it in a byte buffer.
+       * @param {!Uint8Array|!Array<number>} buffer The byte buffer to write to.
+       * @param {number} index The buffer index to write.
+       * @param {number} ebits The number of bits of the exponent.
+       * @param {number} fbits The number of bits of the fraction.
+       * @param {number} sign The sign.
+       * @param {number} exp the exponent.
+       * @param {number} fraction The fraction.
+       * @return {number}
+       * @private
+       */
+
+    }, {
+      key: "packFloatBits_",
+      value: function packFloatBits_(buffer, index, sign, exp, fraction) {
+        /** @type {!Array<number>} */
+        var bits = [];
+        // the sign
+        bits.push(sign);
+        // the exponent
+        for (var i = this.ebits; i > 0; i -= 1) {
+          bits[i] = exp % 2 ? 1 : 0;
+          exp = Math.floor(exp / 2);
+        }
+        // the fraction
+        var len = bits.length;
+        for (var _i = this.fbits; _i > 0; _i -= 1) {
+          bits[len + _i] = fraction % 2 ? 1 : 0;
+          fraction = Math.floor(fraction / 2);
+        }
+        // pack as bytes
+        /** @type {string} */
+        var str = bits.join('');
+        /** @type {number} */
+        var numBytes = this.numBytes + index - 1;
+        /** @type {number} */
+        var k = index;
+        while (numBytes >= index) {
+          buffer[numBytes] = parseInt(str.substring(0, 8), 2);
+          str = str.substring(8);
+          numBytes--;
+          k++;
+        }
+        return k;
+      }
+    }, {
+      key: "roundToEven",
+      value: function roundToEven(n) {
+        var w = Math.floor(n),
+            f = n - w;
+        if (f < 0.5) {
+          return w;
+        }
+        if (f > 0.5) {
+          return w + 1;
+        }
+        return w % 2 ? w + 1 : w;
+      }
+    }]);
+    return IEEE754Buffer;
+  }();
+
+  exports.IEEE754Buffer = IEEE754Buffer;
 
   return exports;
 
 }({}));
- return ieee754Buffer;})));
+return IEEE754Buffer;})));
