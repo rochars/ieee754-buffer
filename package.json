@@ -50,7 +50,7 @@
     "README.md"
   ],
   "scripts": {
-    "lint": "jshint ieee754-buffer.js externs test/src",
+    "lint": "jshint ieee754-buffer.js test/src",
     "test": "nyc ./node_modules/mocha/bin/_mocha test/src --recursive -R dot",
     "test-umd": "node ./node_modules/mocha/bin/_mocha test/src --umd --recursive -R dot",
     "test-tsc": "tsc ./test/dist/TypeScript/main.ts && node -r esm ./test/dist/TypeScript/main.js",

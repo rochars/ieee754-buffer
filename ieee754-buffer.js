@@ -25,14 +25,20 @@
  */
 
 /**
- * @fileoverview Functions to pack and unpack IEEE 754 floating point numbers.
+ * @fileoverview Encode and decode IEEE 754 floating point numbers.
  * @see https://github.com/rochars/ieee754-buffer
  * @see https://bitbucket.org/lindenlab/llsd/raw/7d2646cd3f9b4c806e73aebc4b32bd81e4047fdc/js/typedarray.js
  * @see https://github.com/kazuho/ieee754.js/blob/master/ieee754.js
  */
 
-/** @module IEEE754Buffer */
+/** 
+ * @module IEEE754Buffer
+ * @ignore
+ */
 
+/**
+ * A class to encode and decode IEEE 754 floating-point numbers.
+ */
 export class IEEE754Buffer {
 
   /**
