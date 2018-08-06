@@ -31,7 +31,7 @@ Use **ieee754-buffer.umd.js**:
 <script>
 	let packer = new IEEE754Buffer.IEEE754Buffer(8, 23);
 	var buffer = [];
-	packer.pack(buffer, 0, 3.1415927410, 8, 23);
+	packer.pack(buffer, 0, 3.1415927410);
 	console.log(buffer);
 </script>
 ```
@@ -58,7 +58,7 @@ Cross-browser tests powered by
 import {IEEE754Buffer} from 'ieee754-buffer';
 let packer = new IEEE754Buffer(8, 23);
 let buffer = Uint8Array(4);
-packer.pack(buffer, 0, 3.1415927410, 8, 23);
+packer.pack(buffer, 0, 3.1415927410);
 console.log(buffer);
 ```
 
