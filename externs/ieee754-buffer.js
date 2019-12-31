@@ -23,8 +23,8 @@
  */
 
 /**
- * @fileoverview Externs for uint-buffer 1.0
- * @see https://github.com/rochars/uint-buffer
+ * @fileoverview Externs for ieee754-buffer 1.0
+ * @see https://github.com/rochars/ieee754-buffer
  * @externs
  */
 
