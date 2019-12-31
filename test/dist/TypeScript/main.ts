@@ -7,7 +7,7 @@
  * @see https://github.com/rochars/ieee754-buffer
  */
 
-import {IEEE754Buffer} from '../../../ieee754-buffer.js'
+import {IEEE754Buffer} from '../../../index.js'
 
 let packer = new IEEE754Buffer(8, 23)
 

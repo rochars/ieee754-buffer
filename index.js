@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Rafael da Silva Rocha.
+ * Copyright (c) 2018-2019 Rafael da Silva Rocha.
  * Copyright (c) 2013 DeNA Co., Ltd.
  * Copyright (c) 2010, Linden Research, Inc
  *
@@ -32,8 +32,7 @@
  */
 
 /** 
- * @module IEEE754Buffer
- * @ignore
+ * @module ieee754-buffer
  */
 
 /**

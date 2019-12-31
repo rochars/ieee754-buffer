@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.0.0 - 2019-12-30
+- New package structure:
+	* dist file is "./dist/ieee754-buffer.js", a UMD served as "main"
+	* ES6 source is "./index.js", served as "module"
+
 ## 0.2.1 (2018-08-06)
 - Fix docstring in packFloatBits_()
 

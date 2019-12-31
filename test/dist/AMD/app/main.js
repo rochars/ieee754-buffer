@@ -1,5 +1,5 @@
 define(function (require) {
-    var IEEE754Buffer = require('../../../../ieee754-buffer.umd.js').IEEE754Buffer;
+    var IEEE754Buffer = require('../../../../dist/ieee754-buffer.js').IEEE754Buffer;
     var buffer = [];
 
     var ieee754Buffer = new IEEE754Buffer(8, 23);
@@ -17,4 +17,5 @@ define(function (require) {
     	throw new Error('AMD module error on unpack binary32');
     }
     console.log(buffer);
+    document.write('OK');
 });

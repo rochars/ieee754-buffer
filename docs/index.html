@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    
     <meta charset="utf-8">
     <title>Home - Documentation</title>
-
+    
+    
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
     <!--[if lt IE 9]>
@@ -11,6 +13,8 @@
     <![endif]-->
     <link type="text/css" rel="stylesheet" href="styles/prettify.css">
     <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
@@ -21,8 +25,9 @@
 
 <label for="nav-trigger" class="overlay"></label>
 
-<nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="module-IEEE754Buffer.IEEE754Buffer.html">IEEE754Buffer</a><ul class='methods'><li data-type='method'><a href="module-IEEE754Buffer.IEEE754Buffer.html#pack">pack</a></li><li data-type='method'><a href="module-IEEE754Buffer.IEEE754Buffer.html#unpack">unpack</a></li></ul></li></ul>
+<nav >
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="module-ieee754-buffer.IEEE754Buffer.html">IEEE754Buffer</a><ul class='methods'><li data-type='method'><a href="module-ieee754-buffer.IEEE754Buffer.html#pack">pack</a></li><li data-type='method'><a href="module-ieee754-buffer.IEEE754Buffer.html#unpack">unpack</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-ieee754-buffer.html">ieee754-buffer</a></li></ul>
 </nav>
 
 <div id="main">
@@ -35,6 +40,11 @@
     
 
 
+    <section class="package">
+        <h3> </h3>		
+    </section>
+
+
 
 
 
@@ -45,44 +55,58 @@
     
 
 
+
     <section class="readme">
-        <article><h1>ieee754-buffer</h1><p>Copyright (c) 2018 Rafael da Silva Rocha.<br>Copyright (c) 2013 DeNA Co., Ltd.<br>Copyright (c) 2010, Linden Research, Inc<br>https://github.com/rochars/ieee754-buffer</p>
-<p><a href="https://www.npmjs.com/package/ieee754-buffer"><img src="https://img.shields.io/npm/v/ieee754-buffer.svg?style=for-the-badge" alt="NPM version"></a> <a href="https://rochars.github.io/ieee754-buffer/docs/index.html"><img src="https://img.shields.io/badge/docs-online-blue.svg?style=for-the-badge" alt="Docs"></a> <a href="https://rochars.github.io/ieee754-buffer/test/dist/browser.html"><img src="https://img.shields.io/badge/tests-online-blue.svg?style=for-the-badge" alt="Tests"></a><br><a href="https://codecov.io/gh/rochars/ieee754-buffer"><img src="https://img.shields.io/codecov/c/github/rochars/ieee754-buffer.svg?style=flat-square" alt="Codecov"></a> <a href="https://travis-ci.org/rochars/ieee754-buffer"><img src="https://img.shields.io/travis/rochars/ieee754-buffer.svg?style=flat-square" alt="Unix Build"></a> <a href="https://ci.appveyor.com/project/rochars/ieee754-buffer"><img src="https://img.shields.io/appveyor/ci/rochars/ieee754-buffer.svg?style=flat-square&amp;logo=appveyor" alt="Windows Build"></a> <a href="https://scrutinizer-ci.com/g/rochars/ieee754-buffer/"><img src="https://img.shields.io/scrutinizer/g/rochars/ieee754-buffer.svg?style=flat-square&amp;logo=scrutinizer" alt="Scrutinizer"></a></p>
-<p><strong>ieee754-buffer</strong> is a ES module to encode and decode IEEE 754 floats without typed arrays.</p>
+        <article><h1>ieee754-buffer</h1>
+<p>Copyright (c) 2018-2019 Rafael da Silva Rocha.<br>
+Copyright (c) 2013 DeNA Co., Ltd.<br>
+Copyright (c) 2010, Linden Research, Inc<br>
+https://github.com/rochars/ieee754-buffer</p>
+<p><a href="https://www.npmjs.com/package/ieee754-buffer"><img src="https://img.shields.io/npm/v/ieee754-buffer.svg?style=for-the-badge" alt="NPM version"></a> <a href="https://rochars.github.io/ieee754-buffer/docs/index.html"><img src="https://img.shields.io/badge/docs-online-blue.svg?style=for-the-badge" alt="Docs"></a> <a href="https://rochars.github.io/ieee754-buffer/test/dist/browser.html"><img src="https://img.shields.io/badge/tests-online-blue.svg?style=for-the-badge" alt="Tests"></a><br>
+<a href="https://codecov.io/gh/rochars/ieee754-buffer"><img src="https://img.shields.io/codecov/c/github/rochars/ieee754-buffer.svg?style=flat-square" alt="Codecov"></a> <a href="https://travis-ci.org/rochars/ieee754-buffer"><img src="https://img.shields.io/travis/rochars/ieee754-buffer.svg?style=flat-square" alt="Unix Build"></a> <a href="https://ci.appveyor.com/project/rochars/ieee754-buffer"><img src="https://img.shields.io/appveyor/ci/rochars/ieee754-buffer.svg?style=flat-square&amp;logo=appveyor" alt="Windows Build"></a> <a href="https://scrutinizer-ci.com/g/rochars/ieee754-buffer/"><img src="https://img.shields.io/scrutinizer/g/rochars/ieee754-buffer.svg?style=flat-square&amp;logo=scrutinizer" alt="Scrutinizer"></a></p>
+<p><strong>ieee754-buffer</strong> is a module to encode and decode IEEE 754 floating point numbers.</p>
 <ul>
 <li><strong>MIT licensed</strong></li>
-<li><strong>Use it out of the box in the browser</strong></li>
-<li><strong>Use it out of the box in Node.js</strong></li>
-<li><strong>Use it out of the box with <a href="https://www.typescriptlang.org/">TypeScript</a></strong></li>
-<li><strong>UMD compatible with IE6+ and browsers that support ES3/ES5/ES6+</strong></li>
-<li><strong>Tested with 16-bit, 32-bit and 64-bit floats</strong></li>
-<li><strong>Tested against Python's struct module</strong></li>
+<li><strong>Can be used where typed arrays can't</strong></li>
+<li><strong>Parse 16-bit, 32-bit and 64-bit floats</strong></li>
 </ul>
-<h2>Install</h2><pre class="prettyprint source"><code>npm install ieee754-buffer</code></pre><h2>Use</h2><h3>Browser</h3><p>Use <strong>ieee754-buffer.umd.js</strong>:</p>
-<pre class="prettyprint source lang-html"><code>&lt;script src=&quot;ieee754-buffer.umd.js&quot;>&lt;/script>
+<h2>Install</h2>
+<pre class="prettyprint source"><code>npm install ieee754-buffer
+</code></pre>
+<h2>Use</h2>
+<h3>Browser</h3>
+<p>Use the <strong>ieee754-buffer.js</strong> file in the <strong>/dist</strong> folder:</p>
+<pre class="prettyprint source lang-html"><code>&lt;script src=&quot;ieee754-buffer.js&quot;>&lt;/script>
 &lt;script>
-    let packer = new IEEE754Buffer.IEEE754Buffer(8, 23);
-    var buffer = [];
-    packer.pack(buffer, 0, 3.1415927410);
-    console.log(buffer);
-&lt;/script></code></pre><p>Or load it from the <a href="https://cdn.jsdelivr.net/npm/ieee754-buffer">jsDelivr</a> CDN:</p>
-<pre class="prettyprint source lang-html"><code>&lt;script src=&quot;https://cdn.jsdelivr.net/npm/ieee754-buffer&quot;>&lt;/script></code></pre><p>Or load it from <a href="https://unpkg.com/ieee754-buffer">unpkg</a>:</p>
-<pre class="prettyprint source lang-html"><code>&lt;script src=&quot;https://unpkg.com/ieee754-buffer&quot;>&lt;/script></code></pre><h4>Browser compatibility</h4><p><strong>ieee754-buffer.umd.js</strong> is compatible with IE6+. Should work in all modern browsers that support ES3/ES5/ES6+.</p>
-<p>Cross-browser tests powered by<br><a href="https://www.browserstack.com"><img src="https://rochars.github.io/endianness/docs/Browserstack-logo@2x.png" width="150px"/></a></p>
-<h3>Node</h3><p><strong>Import IEEE754Buffer from ieee754-buffer</strong>:</p>
-<pre class="prettyprint source lang-javascript"><code>import {IEEE754Buffer} from 'ieee754-buffer';
+	let packer = new IEEE754Buffer.IEEE754Buffer(8, 23);
+	var buffer = [];
+	packer.pack(buffer, 0, 3.1415927410);
+	console.log(buffer);
+&lt;/script>
+</code></pre>
+<p>Or load it from the <a href="https://cdn.jsdelivr.net/npm/ieee754-buffer">jsDelivr</a> CDN:</p>
+<pre class="prettyprint source lang-html"><code>&lt;script src=&quot;https://cdn.jsdelivr.net/npm/ieee754-buffer&quot;>&lt;/script>
+</code></pre>
+<p>Or load it from <a href="https://unpkg.com/ieee754-buffer">unpkg</a>:</p>
+<pre class="prettyprint source lang-html"><code>&lt;script src=&quot;https://unpkg.com/ieee754-buffer&quot;>&lt;/script>
+</code></pre>
+<h3>Node</h3>
+<pre class="prettyprint source lang-javascript"><code>const IEEE754Buffer = require('ieee754-buffer').IEEE754Buffer;
 let packer = new IEEE754Buffer(8, 23);
 let buffer = Uint8Array(4);
 packer.pack(buffer, 0, 3.1415927410);
-console.log(buffer);</code></pre><p>Or <strong>require</strong>:</p>
-<pre class="prettyprint source lang-javascript"><code>const IEEE754Buffer = require('ieee754-buffer').IEEE754Buffer;</code></pre><h2>About</h2><ul>
+console.log(buffer);
+</code></pre>
+<h2>About</h2>
+<ul>
 <li><strong>Overflows</strong> are rounded towards <strong>Infinity</strong> and <strong>-Infinity</strong>.</li>
 <li><strong>NaN</strong> is packed as quiet NaN. Both <strong>quiet NaN</strong> and <strong>signaling NaN</strong> can be unpacked.</li>
 <li>Support packing and unpacking <strong>zero</strong> and <strong>negative zero</strong>.</li>
 <li>Support packing and unpacking <strong>Infinity</strong> and <strong>negative Infinity</strong></li>
 <li><strong>always little endian</strong>, use <a href="https://www.github.com/rochars/byte-data">byte-data</a> for a endianness-independent interface of this lib</li>
 </ul>
-<h2>API</h2><pre class="prettyprint source lang-javascript"><code>
+<h2>API</h2>
+<pre class="prettyprint source lang-javascript"><code>
 export class IEEE754Buffer {
 
   /**
@@ -110,11 +134,20 @@ export class IEEE754Buffer {
    * @return {number} The floating point number.
    */
   unpack(buffer, index) {}
-}</code></pre><h2>Contributing</h2><p><strong>ieee754-buffer</strong> welcomes all contributions from anyone willing to work in good faith with other contributors and the community. No contribution is too small and all contributions are valued.</p>
+}
+</code></pre>
+<h2>Contributing</h2>
+<p><strong>ieee754-buffer</strong> welcomes all contributions from anyone willing to work in good faith with other contributors and the community. No contribution is too small and all contributions are valued.</p>
 <p>See <a href="https://github.com/rochars/ieee754-buffer/blob/master/CONTRIBUTING.md">CONTRIBUTING.md</a> for details.</p>
-<h3>Style guide</h3><p><strong>ieee754-buffer</strong> code should follow the Google JavaScript Style Guide:<br>https://google.github.io/styleguide/jsguide.html</p>
-<h3>Code of conduct</h3><p>This project is bound by a code of conduct: The <a href="https://github.com/rochars/ieee754-buffer/blob/master/CODE_OF_CONDUCT.md">Contributor Covenant, version 1.4</a>, also available at https://<a href="http://www.contributor-covenant.org/version/1/4/code-of-conduct.html">www.contributor-covenant.org/version/1/4/code-of-conduct.html</a></p>
-<h2>LICENSE</h2><p>Copyright (c) 2018 Rafael da Silva Rocha.<br>Copyright (c) 2013 DeNA Co., Ltd.<br>Copyright (c) 2010, Linden Research, Inc</p>
+<h3>Style guide</h3>
+<p><strong>ieee754-buffer</strong> code should follow the Google JavaScript Style Guide:<br>
+https://google.github.io/styleguide/jsguide.html</p>
+<h3>Code of conduct</h3>
+<p>This project is bound by a code of conduct: The <a href="https://github.com/rochars/ieee754-buffer/blob/master/CODE_OF_CONDUCT.md">Contributor Covenant, version 1.4</a>, also available at https://www.contributor-covenant.org/version/1/4/code-of-conduct.html</p>
+<h2>LICENSE</h2>
+<p>Copyright (c) 2018-2019 Rafael da Silva Rocha.<br>
+Copyright (c) 2013 DeNA Co., Ltd.<br>
+Copyright (c) 2010, Linden Research, Inc</p>
 <p>Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
 &quot;Software&quot;), to deal in the Software without restriction, including
@@ -146,23 +179,24 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p></article>
 <header>
     
         <h2>
-        ieee754-buffer.js
+        index.js
         </h2>
         
     
 </header>
 
 <article>
-    <div class="container-overview">
     
+        <div class="container-overview">
         
+            
 
 <dl class="details">
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ieee754-buffer.js.html">ieee754-buffer.js</a>, <a href="ieee754-buffer.js.html#line27">line 27</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line27">line 27</a>
     </li></ul></dd>
     
 
@@ -211,18 +245,21 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p></article>
 
 
 
-        
-            <div class="description">Encode and decode IEEE 754 floating point numbers.</div>
-        
+            
+                <div class="description">Encode and decode IEEE 754 floating point numbers.</div>
+            
 
+            
         
-    
-    </div>
-
-    
-
+        </div>
     
 
+    
+
+    
+
+    
+    
     
 
      
@@ -243,15 +280,21 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p></article>
 
 
 
+    
+    
 </div>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Aug 06 2018 00:22:13 GMT-0300 (Hora oficial do Brasil) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
 <script src="scripts/linenumber.js"></script>
+
+
+
 </body>
 </html>

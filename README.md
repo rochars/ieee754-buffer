@@ -1,5 +1,5 @@
 # ieee754-buffer
-Copyright (c) 2018 Rafael da Silva Rocha.  
+Copyright (c) 2018-2019 Rafael da Silva Rocha.  
 Copyright (c) 2013 DeNA Co., Ltd.  
 Copyright (c) 2010, Linden Research, Inc  
 https://github.com/rochars/ieee754-buffer
@@ -7,15 +7,11 @@ https://github.com/rochars/ieee754-buffer
 [![NPM version](https://img.shields.io/npm/v/ieee754-buffer.svg?style=for-the-badge)](https://www.npmjs.com/package/ieee754-buffer) [![Docs](https://img.shields.io/badge/docs-online-blue.svg?style=for-the-badge)](https://rochars.github.io/ieee754-buffer/docs/index.html) [![Tests](https://img.shields.io/badge/tests-online-blue.svg?style=for-the-badge)](https://rochars.github.io/ieee754-buffer/test/dist/browser.html)  
 [![Codecov](https://img.shields.io/codecov/c/github/rochars/ieee754-buffer.svg?style=flat-square)](https://codecov.io/gh/rochars/ieee754-buffer) [![Unix Build](https://img.shields.io/travis/rochars/ieee754-buffer.svg?style=flat-square)](https://travis-ci.org/rochars/ieee754-buffer) [![Windows Build](https://img.shields.io/appveyor/ci/rochars/ieee754-buffer.svg?style=flat-square&logo=appveyor)](https://ci.appveyor.com/project/rochars/ieee754-buffer) [![Scrutinizer](https://img.shields.io/scrutinizer/g/rochars/ieee754-buffer.svg?style=flat-square&logo=scrutinizer)](https://scrutinizer-ci.com/g/rochars/ieee754-buffer/)
 
-**ieee754-buffer** is a ES module to encode and decode IEEE 754 floats without typed arrays.
+**ieee754-buffer** is a module to encode and decode IEEE 754 floating point numbers.
 
 - **MIT licensed**
-- **Use it out of the box in the browser**
-- **Use it out of the box in Node.js**
-- **Use it out of the box with [TypeScript](https://www.typescriptlang.org/)**
-- **UMD compatible with IE6+ and browsers that support ES3/ES5/ES6+**
-- **Tested with 16-bit, 32-bit and 64-bit floats**
-- **Tested against Python's struct module**
+- **Can be used where typed arrays can't**
+- **Parse 16-bit, 32-bit and 64-bit floats**
 
 ## Install
 ```
@@ -25,9 +21,9 @@ npm install ieee754-buffer
 ## Use
 
 ### Browser
-Use **ieee754-buffer.umd.js**:
+Use the **ieee754-buffer.js** file in the **/dist** folder:
 ```html
-<script src="ieee754-buffer.umd.js"></script>
+<script src="ieee754-buffer.js"></script>
 <script>
 	let packer = new IEEE754Buffer.IEEE754Buffer(8, 23);
 	var buffer = [];
@@ -46,25 +42,13 @@ Or load it from [unpkg](https://unpkg.com/ieee754-buffer):
 <script src="https://unpkg.com/ieee754-buffer"></script>
 ```
 
-#### Browser compatibility
-**ieee754-buffer.umd.js** is compatible with IE6+. Should work in all modern browsers that support ES3/ES5/ES6+.
-
-Cross-browser tests powered by  
-<a href="https://www.browserstack.com"><img src="https://rochars.github.io/endianness/docs/Browserstack-logo@2x.png" width="150px"/></a>
-
 ### Node
-**Import IEEE754Buffer from ieee754-buffer**:
 ```javascript
-import {IEEE754Buffer} from 'ieee754-buffer';
+const IEEE754Buffer = require('ieee754-buffer').IEEE754Buffer;
 let packer = new IEEE754Buffer(8, 23);
 let buffer = Uint8Array(4);
 packer.pack(buffer, 0, 3.1415927410);
 console.log(buffer);
-```
-
-Or **require**:
-```javascript
-const IEEE754Buffer = require('ieee754-buffer').IEEE754Buffer;
 ```
 
 ## About
@@ -120,7 +104,7 @@ https://google.github.io/styleguide/jsguide.html
 This project is bound by a code of conduct: The [Contributor Covenant, version 1.4](https://github.com/rochars/ieee754-buffer/blob/master/CODE_OF_CONDUCT.md), also available at https://www.contributor-covenant.org/version/1/4/code-of-conduct.html
 
 ## LICENSE
-Copyright (c) 2018 Rafael da Silva Rocha.  
+Copyright (c) 2018-2019 Rafael da Silva Rocha.  
 Copyright (c) 2013 DeNA Co., Ltd.  
 Copyright (c) 2010, Linden Research, Inc
 
