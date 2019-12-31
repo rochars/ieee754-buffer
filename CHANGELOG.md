@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 1.0.1 - 2019-12-31
+- Fix: rounding byte values must work the same on all browsers
+
 ## 1.0.0 - 2019-12-30
 - New package structure:
 	* dist file is "./dist/ieee754-buffer.js", a UMD served as "main"

@@ -149,7 +149,7 @@ export class IEEE754Buffer {
     /** @type {number} */
     let exp = Math.min(Math.floor(Math.log(num) / Math.LN2), 1023);
     /** @type {number} */
-    let fraction = Math.round(num / Math.pow(2, exp) * Math.pow(2, this.fbits));
+    let fraction = roundToEven(num / Math.pow(2, exp) * Math.pow(2, this.fbits));
     // NaN
     if (num !== num) {
       fraction = Math.pow(2, this.fbits - 1);
@@ -167,10 +167,10 @@ export class IEEE754Buffer {
           fraction = 0;
         } else {
           exp = exp + this.bias;
-          fraction = Math.round(fraction) - Math.pow(2, this.fbits);
+          fraction = roundToEven(fraction) - Math.pow(2, this.fbits);
         }
       } else {
-        fraction = Math.round(num / Math.pow(2, 1 - this.bias - this.fbits));
+        fraction = roundToEven(num / Math.pow(2, 1 - this.bias - this.fbits));
         exp = 0;
       } 
     }
@@ -259,6 +259,25 @@ export class IEEE754Buffer {
     }
     return k;
   }
+}
+
+/**
+ * Round a number to its nearest even value.
+ * @param {number} n The number.
+ * @return {number}
+ * @private
+ */
+function roundToEven(n) {
+  /** @type {number} */
+  let w = Math.floor(n);
+  let f = n - w;
+  if (f &lt; 0.5) {
+    return w;
+  }
+  if (f > 0.5) {
+    return w + 1;
+  }
+  return w % 2 ? w + 1 : w;
 }
 </code></pre>
         </article>
