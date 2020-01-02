@@ -89,6 +89,7 @@ export class IEEE754Buffer {
    * @param {number} num The number.
    * @param {number} index The index to write on the buffer.
    * @return {number} The next index to write on the buffer.
+   * @throws {TypeError} If input is not a number.
    */
   pack(buffer, num, index) {
     // Only numbers can be packed
