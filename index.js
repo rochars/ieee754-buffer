@@ -91,6 +91,10 @@ export class IEEE754Buffer {
    * @return {number} The next index to write on the buffer.
    */
   pack(buffer, num, index) {
+    // Only numbers can be packed
+    if (typeof num != 'number') {
+      throw new TypeError();
+    }
     // Round overflows
     if (Math.abs(num) > this.biasP2 - (this.ebitsFbits * 2)) {
       num = num < 0 ? -Infinity : Infinity;

@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 2.0.0 - 2019-12-02
+- Fix: Throw TypeError if input is not a number.
+
 ## 1.0.1 - 2019-12-31
 - Fix: rounding byte values must work the same on all browsers
 
