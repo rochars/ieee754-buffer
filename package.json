@@ -41,10 +41,12 @@
     "url": "https://github.com/rochars/ieee754-buffer/issues"
   },
   "directories": {
-    "dist": "dist"
+    "dist": "dist",
+    "externs": "externs"
   },
   "files": [
     "dist",
+    "externs",
     "index.js",
     "index.d.ts",
     "LICENSE",
